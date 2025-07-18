@@ -1,4 +1,6 @@
 # Doom-Nano-ESP32
+This source code is not from me but from "https://github.com/daveruiz".
+I just adapted it to work on an Arduino Nano ESP32-S3 with an ST7920 display.
 
 ![Doom nano ESP32](https://github.com/ZelTroN-2k3/Doom-Nano-ESP32/blob/main/images/Doom-nano-ESP32.jpg)
 

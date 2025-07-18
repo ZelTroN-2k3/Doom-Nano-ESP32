@@ -8,6 +8,9 @@ conçu pour tourner sur un microcontrôleur Arduino Nano ESP32-S2 avec un écran
 Ce projet est une démonstration complète des capacités de la plateforme ESP32 pour le "demomaking" et le jeu rétro, 
 incluant un moteur de rendu 3D par raycasting, une IA pour les ennemis, une gestion de la physique, des effets sonores, et un éditeur de niveau complet.
 
+![Doom nano ESP32](https://github.com/ZelTroN-2k3/Doom-Nano-ESP32/blob/main/images/Doom-nano-ESP32-menu.jpg)
+![Doom nano ESP32](https://github.com/ZelTroN-2k3/Doom-Nano-ESP32/blob/main/images/Doom-nano-ESP32-game.jpg)
+
 ## Table des Matières
 
   - [Fonctionnalités](https://www.google.com/search?q=%23fonctionnalit%C3%A9s)

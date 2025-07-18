@@ -1,0 +1,85 @@
+body { font-family: sans-serif; background-color: #333; color: #eee; margin: 20px; }
+h1, h3 { text-align: center; }
+
+/* --- NOUVEAUX STYLES --- */
+.header-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 0 50px; /* Espace pour le sélecteur de langue */
+}
+#lang-switcher {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    border: 1px solid #777;
+    border-radius: 5px;
+    overflow: hidden;
+}
+#lang-switcher button {
+    background-color: transparent;
+    border: none;
+    color: #eee;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+}
+#lang-switcher button.active {
+    background-color: #008cba;
+}
+/* --- FIN NOUVEAUX STYLES --- */
+
+.menu-bar { margin-top: 10px; margin-bottom: 20px; display: flex; gap: 10px; justify-content: center; align-items: center; }
+.menu-bar button { padding: 10px; font-size: 16px; cursor: pointer; }
+.separator { font-size: 24px; color: #666; }
+.editor-container { display: flex; gap: 20px; justify-content: center; }
+#palette { display: flex; flex-direction: column; gap: 5px; }
+.palette-entry {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 3px;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+.palette-entry.selected {
+    border-color: #00ff00;
+    background-color: #444;
+}
+.palette-label { font-size: 14px; white-space: nowrap; }
+.palette-item {
+    width: 30px; height: 30px;
+    border: 2px solid #555;
+    text-align: center;
+    line-height: 30px;
+    font-size: 18px;
+    user-select: none;
+    flex-shrink: 0;
+}
+#map-grid {
+    display: grid;
+    grid-template-columns: repeat(64, 12px);
+    border: 1px solid #777;
+    position: relative; /* Important pour la sélection */
+}
+.tile {
+    width: 12px; height: 12px;
+    background-color: #444;
+    box-sizing: border-box;
+    border: 1px solid #555;
+}
+
+/* --- NOUVEAUX STYLES --- */
+.tile.selected-area {
+    box-shadow: inset 0 0 0 2px rgba(0, 255, 255, 0.7); /* Surlignage pour la zone sélectionnée */
+}
+
+/* --- FIN NOUVEAUX STYLES --- */
+
+textarea { width: 90%; max-width: 800px; margin: 10px auto; display: block; background-color: #222; color: #0f0; font-family: monospace; }
+.modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); }
+.modal-content { background-color: #444; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 500px; }
+.close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Level Editor</title> <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header-bar">
+        <h1 data-lang-key="editorTitle">Éditeur de Niveau</h1>
+        <div id="lang-switcher">
+            <button data-lang="fr" class="active">FR</button>
+            <button data-lang="en">EN</button>
+            <button data-lang="es">ES</button>
+        </div>
+    </div>
+    
+    <div class="menu-bar">
+        <button id="new-btn" data-lang-key="newButton">Nouveau</button>
+        <button id="load-btn" data-lang-key="loadButton">Charger</button>
+        <button id="save-btn" data-lang-key="saveButton">Sauvegarder (C++)</button>
+        <button id="save-ascii-btn" data-lang-key="saveAsciiButton">Sauvegarder (ASCII)</button>
+        <span class="separator">|</span>
+        <button id="copy-btn" data-lang-key="copyButton">Copier</button>
+        <button id="paste-btn" data-lang-key="pasteButton">Coller</button>
+        <span class="separator">|</span>
+        <button id="export-btn" data-lang-key="exportButton">Exporter</button>
+        <button id="info-btn" data-lang-key="infoButton">Infos</button>
+        <input type="file" id="file-input" style="display: none;">
+    </div>
+
+    <div class="editor-container">
+        <div id="palette"></div>
+        <div id="map-grid"></div>
+    </div>
+
+    <h3 data-lang-key="exportTitle">Code C++ à exporter :</h3>
+    <textarea id="output-data" readonly rows="10" cols="80"></textarea>
+
+    <div id="info-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2 data-lang-key="infoModalTitle">Infos Éditeur</h2>
+            <p data-lang-key="infoDesc1">Cet éditeur a été créé pour le projet Doom-Nano-ESP32.</p>
+            <p data-lang-key="infoDesc2">Utilisez la palette pour sélectionner un bloc, puis dessinez sur la grille.</p>
+            
+            <h4 data-lang-key="infoActionsTitle">Actions des Boutons :</h4>
+            <ul>
+                <li><strong data-lang-key="infoNew">Nouveau :</strong><span data-lang-key="infoNewDesc"> Efface la carte actuelle.</span></li>
+                <li><strong data-lang-key="infoLoad">Charger :</strong><span data-lang-key="infoLoadDesc"> Charge un fichier de données de niveau (format .txt).</span></li>
+                <li><strong data-lang-key="infoSave">Sauvegarder (C++) :</strong><span data-lang-key="infoSaveDesc"> Sauvegarde le code C++ de la carte dans un fichier .txt.</span></li>
+                <li><strong data-lang-key="infoSaveAscii">Sauvegarder (ASCII) :</strong><span data-lang-key="infoSaveAsciiDesc"> Sauvegarde une version texte lisible de la carte.</span></li>
+                <li><strong data-lang-key="infoCopy">Copier :</strong><span data-lang-key="infoCopyDesc"> Copie la zone actuellement sélectionnée.</span></li>
+                <li><strong data-lang-key="infoPaste">Coller :</strong><span data-lang-key="infoPasteDesc"> Colle la zone copiée à l'endroit sélectionné.</span></li>
+            </ul>
+
+            <h4 data-lang-key="infoShortcutsTitle">Raccourcis Clavier :</h4>
+            <ul>
+                <li><b>Clic + Glisser :</b><span data-lang-key="infoDraw"> Dessiner avec l'outil sélectionné.</span></li>
+                <li><b>MAJ + Clic + Glisser :</b><span data-lang-key="infoSelect"> Sélectionner une zone rectangulaire.</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

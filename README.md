@@ -109,6 +109,6 @@ Le projet est organisé en plusieurs fichiers pour plus de clarté :
 
 ## Crédits et Remerciements
 
-  * **Développement** : Votre Nom / Pseudo ici.
+  * **Développement** : Patrick.A / ZelTroN2k3.
   * **Algorithme de Raycasting** : Le moteur de rendu est basé sur l'excellent tutoriel de [Lode Vandevenne](https://lodev.org/cgtutor/raycasting.html).
   * **Bibliothèque Graphique** : Un grand merci aux contributeurs de la bibliothèque [U8g2lib](https://github.com/olikraus/u8g2).

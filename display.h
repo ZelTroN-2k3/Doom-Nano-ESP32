@@ -5,6 +5,11 @@
 #include "constants.h"
 #include "sprites.h"
 
+// --- NOUVEAU : Accès aux variables globales ---
+extern double g_current_wall_x;
+extern double g_current_distance;
+// --- FIN NOUVEAU ---
+
 // ===============================================================
 // ==        INITIALISATION DE L'ÉCRAN U8G2 (ST7920)            ==
 // ===============================================================
@@ -69,19 +74,27 @@ void drawText(int8_t x, int8_t y, int num) {
 
 bool getGradientPixel(uint8_t x, uint8_t y, uint8_t i) {
   // --- LOGIQUE POUR LES TEXTURES DE PORTES ---
-  // Si l'identifiant est celui d'une porte normale, on dessine un damier
-  if (i == DOOR_TEXTURE) {
-    // L'opérateur XOR (^) crée un motif de damier.
-    // On peut changer les chiffres (ex: % 8 < 4) pour changer la taille des carrés.
-    return ((x % 4 < 2) ^ (y % 4 < 2));
-  }
-  // Si c'est une porte verrouillée, on dessine des lignes verticales
-  if (i == LOCKED_DOOR_TEXTURE) {
-    return (x % 4 < 2);
-  }
-  // --- FIN DE LA LOGIQUE ---
 
-  // L'ancienne logique pour les dégradés de gris reste la même
+  if (i == DOOR_TEXTURE || i == LOCKED_DOOR_TEXTURE) {
+      // Coordonnée X de la texture (horizontale)
+      int texX = int(g_current_wall_x * double(BMP_DOOR_WIDTH));
+
+      // Coordonnée Y de la texture (verticale)
+      int line_height = RENDER_HEIGHT / g_current_distance;
+      int draw_start = -line_height / 2 + RENDER_HEIGHT / 2;
+      int texY = ((y - draw_start) * BMP_DOOR_HEIGHT) / line_height;
+
+      // Sécurité pour ne pas lire en dehors du tableau
+      texX = max(0, min((int)BMP_DOOR_WIDTH - 1, texX));
+      texY = max(0, min((int)BMP_DOOR_HEIGHT - 1, texY));
+
+      // Lecture du bit correspondant dans le sprite de la porte
+      uint16_t byte_offset = (texY * (BMP_DOOR_WIDTH / 8)) + (texX / 8);
+      return read_bit(pgm_read_byte(bmp_door_bits + byte_offset), texX % 8);
+  }
+  // --- FIN DU REMPLACEMENT ---
+
+  // L'ancienne logique pour les dégradés de gris
   if (i == 0) return 0;
   if (i >= GRADIENT_COUNT - 1) return 1;
   

@@ -5,14 +5,14 @@
 
 // Shortcuts
 // Ajout de l'initialisation pour 'keys'
-#define create_player(x, y)   { \
+/* #define create_player(x, y)   { \
     create_coords((double) x + 0.5, (double) y + 0.5), \
     create_coords(1, 0), \
     create_coords(0, -0.66), \
     0, \
     100, \
     0 \
-  }
+  } */
 
 #define create_enemy(x, y)            create_entity(E_ENEMY, x, y, S_STAND, 100)
 #define create_medikit(x, y)          create_entity(E_MEDIKIT, x, y, S_STAND, 0)

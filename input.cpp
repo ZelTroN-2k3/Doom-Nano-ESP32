@@ -23,13 +23,13 @@ bool input_down() {
 }
 
 bool input_left() {
-  // Inversion de la logique pour l'axe X
-  return analogRead(JOY_X_PIN) > JOY_THRESHOLD_HIGH;
+  // La gauche correspond à une valeur analogique basse
+  return analogRead(JOY_X_PIN) < JOY_THRESHOLD_LOW;
 }
 
 bool input_right() {
-  // Inversion de la logique pour l'axe X
-  return analogRead(JOY_X_PIN) < JOY_THRESHOLD_LOW;
+  // La droite correspond à une valeur analogique haute
+  return analogRead(JOY_X_PIN) > JOY_THRESHOLD_HIGH;
 }
 
 bool input_fire() {

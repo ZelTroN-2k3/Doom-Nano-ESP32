@@ -14,53 +14,124 @@
         </div>
     </div>
     
-    <div class="menu-bar">
-        <button id="new-btn" data-lang-key="newButton">Nouveau</button>
-        <button id="load-btn" data-lang-key="loadButton">Charger</button>
-        <button id="save-btn" data-lang-key="saveButton">Sauvegarder (C++)</button>
-        <button id="save-ascii-btn" data-lang-key="saveAsciiButton">Sauvegarder (ASCII)</button>
-        <span class="separator">|</span>
-        <button id="copy-btn" data-lang-key="copyButton">Copier</button>
-        <button id="paste-btn" data-lang-key="pasteButton">Coller</button>
-        <span class="separator">|</span>
-        <button id="export-btn" data-lang-key="exportButton">Exporter</button>
-        <button id="info-btn" data-lang-key="infoButton">Infos</button>
-        <input type="file" id="file-input" style="display: none;">
-    </div>
+    <div id="current-filename" class="filename-display"></div>
+    
+	<div class="menu-bar">
+		<button id="new-btn" title="Nouveau"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M432 128H296V80c0-26.5-21.5-48-48-48H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V176c0-26.5 21.5-48 48-48zM96 256c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm128-64c0 17.7-14.3 32-32 32s-32-14.3-32-32 14.3-32 32-32 32 14.3 32 32z"/></svg><span data-lang-key="newButton">Nouveau</span></button>
+		<button id="load-btn" title="Charger"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M528 448H48c-26.5 0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h192l64 64h224c26.5 0 48 21.5 48 48v224c0 26.5-21.5 48-48 48zM64 160v224h448V224H288l-64-64H64z"/></svg><span data-lang-key="loadButton">Charger</span></button>
+		<button id="save-btn" title="Sauvegarder (C++)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M433.9 128l-83.9-83.9C342.1 36.1 328 32 312 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V176c0-16-4.1-30.1-12.1-40zM224 416c-35.3 0-64-28.7-64-64s28.7-64 64-64 64 28.7 64 64-28.7 64-64 64zM320 160H128v-32h192v32z"/></svg><span data-lang-key="saveButton">Sauvegarder (C++)</span></button>
+		<button id="save-ascii-btn" title="Sauvegarder (ASCII)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M433.9 128l-83.9-83.9C342.1 36.1 328 32 312 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V176c0-16-4.1-30.1-12.1-40zM224 416c-35.3 0-64-28.7-64-64s28.7-64 64-64 64 28.7 64 64-28.7 64-64 64zM320 160H128v-32h192v32z"/></svg><span data-lang-key="saveAsciiButton">Sauvegarder (ASCII)</span></button>
+		
+		<span class="separator">|</span>
+		<button id="copy-btn" title="Copier"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M464 0H144c-26.5 0-48 21.5-48 48v48H48c-26.5 0-48 21.5-48 48v320c0 26.5 21.5 48 48 48h320c26.5 0 48-21.5 48-48v-48h48c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48zM368 464H48V144h320v320zm100-100h-48V48H144V48h320v316z"/></svg><span data-lang-key="copyButton">Copier</span></button>
+		<button id="paste-btn" title="Coller"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M288 32H192V0h-96v32H0v448h384V32h-96zM128 32h32v32h-32V32zm160 384H96V128h192v288z"/></svg><span data-lang-key="pasteButton">Coller</span></button>
+		<span class="separator">|</span>
+		<button id="undo-btn" title="Annuler" disabled><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M127.8 35.2a16 16 0 00-22.6 0l-96 96c-6.3 6.3-6.3 16.4 0 22.6l96 96c6.3 6.3 16.4 6.3 22.6 0s6.3-16.4 0-22.6L56.9 192H240c44.2 0 80 35.8 80 80s-35.8 80-80 80H80c-8.8 0-16 7.2-16 16s7.2 16 16 16h160c61.9 0 112-50.1 112-112s-50.1-112-112-112H56.9l70.8-70.8c6.3-6.3 6.3-16.4 0-22.6z"/></svg><span data-lang-key="undoButton">Annuler</span></button>
+		<button id="redo-btn" title="Rétablir" disabled><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M384.2 35.2a16 16 0 0122.6 0l96 96c6.3 6.3 6.3 16.4 0 22.6l-96 96c-6.3 6.3-16.4 6.3-22.6 0s-6.3-16.4 0-22.6L455.1 192H272c-44.2 0-80 35.8-80 80s35.8 80 80 80h112c8.8 0 16-7.2 16-16s-7.2-16-16-16H272c-26.5 0-48-21.5-48-48s21.5-48 48-48h183.1l-70.8-70.8c-6.3-6.3-6.3-16.4 0-22.6z"/></svg><span data-lang-key="redoButton">Rétablir</span></button>
+		<span class="separator">|</span>
+		<button id="export-btn" title="Exporter"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path d="M528 224H480v-48c0-26.5-21.5-48-48-48H144c-26.5 0-48 21.5-48 48v48H48c-26.5 0-48 21.5-48 48v192c0 26.5 21.5 48 48 48h480c26.5 0 48-21.5 48-48V272c0-26.5-21.5-48-48-48zM160 176c0-8.8 7.2-16 16-16h128c8.8 0 16 7.2 16 16v48H160v-48zm-32 256H64v-32h64v32zm160 0h-64v-32h64v32zm160 0h-64v-32h64v32zm96 0h-64v-32h64v32zm0-96H48v-32h480v32z"/></svg><span data-lang-key="exportButton">Exporter</span></button>
+		<button id="info-btn" title="Infos"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 0C114.6 0 0 114.6 0 256s114.6 256 256 256 256-114.6 256-256S397.4 0 256 0zM256 400c-17.7 0-32-14.3-32-32s14.3-32 32-32 32 14.3 32 32-14.3 32-32 32zm32-128c0 17.7-14.3 32-32 32s-32-14.3-32-32V144c0-17.7 14.3-32 32-32s32 14.3 32 32v128z"/></svg><span data-lang-key="infoButton">Infos</span></button>
+		
+		<input type="file" id="file-input" style="display: none;">
+	</div>
 
-    <div class="editor-container">
-        <div id="palette"></div>
-        <div id="map-grid"></div>
-    </div>
+	<div class="editor-container">
+		<div id="palette"></div>
+
+		<div class="grid-area-container">
+			<div id="grid-viewport">
+				<div id="map-grid"></div>
+			</div>
+			<div id="zoom-controls">
+				<button id="zoom-out-btn">-</button>
+				<button id="zoom-in-btn">+</button>
+			</div>
+		</div>
+		
+		<div id="properties-panel" style="display: none;">
+			</div>
+
+		<div id="preview-container">
+			<div class="preview-header">
+				<h4 data-lang-key="previewTitle">Prévisualisation 3D</h4>
+				<div class="preview-controls">
+					<select id="resolution-selector">
+						<option value="auto">Auto</option>
+						<option value="16:9">16:9</option>
+						<option value="320x240">320x240</option>
+						<option value="640x480">640x480</option>
+						<option value="800x600">800x600</option>
+					</select>
+				<button id="fullscreen-btn" title="Plein écran">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 0v5h2V2h3V0H0zm16 0h-5v2h3v3h2V0zM0 16h5v-2H2v-3H0v5zm16 0v-5h-2v3h-3v2h5z"/></svg>
+    </button>
+				</div>
+			</div>
+			<canvas id="preview-canvas" width="128" height="56" tabindex="0"></canvas>
+			<button id="fullscreen-close-btn" style="display: none;">&times;</button>
+		</div>
+	</div>
 
     <h3 data-lang-key="exportTitle">Code C++ à exporter :</h3>
     <textarea id="output-data" readonly rows="10" cols="80"></textarea>
 
-    <div id="info-modal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2 data-lang-key="infoModalTitle">Infos Éditeur</h2>
-            <p data-lang-key="infoDesc1">Cet éditeur a été créé pour le projet Doom-Nano-ESP32.</p>
-            <p data-lang-key="infoDesc2">Utilisez la palette pour sélectionner un bloc, puis dessinez sur la grille.</p>
-            
-            <h4 data-lang-key="infoActionsTitle">Actions des Boutons :</h4>
-            <ul>
-                <li><strong data-lang-key="infoNew">Nouveau :</strong><span data-lang-key="infoNewDesc"> Efface la carte actuelle.</span></li>
-                <li><strong data-lang-key="infoLoad">Charger :</strong><span data-lang-key="infoLoadDesc"> Charge un fichier de données de niveau (format .txt).</span></li>
-                <li><strong data-lang-key="infoSave">Sauvegarder (C++) :</strong><span data-lang-key="infoSaveDesc"> Sauvegarde le code C++ de la carte dans un fichier .txt.</span></li>
-                <li><strong data-lang-key="infoSaveAscii">Sauvegarder (ASCII) :</strong><span data-lang-key="infoSaveAsciiDesc"> Sauvegarde une version texte lisible de la carte.</span></li>
-                <li><strong data-lang-key="infoCopy">Copier :</strong><span data-lang-key="infoCopyDesc"> Copie la zone actuellement sélectionnée.</span></li>
-                <li><strong data-lang-key="infoPaste">Coller :</strong><span data-lang-key="infoPasteDesc"> Colle la zone copiée à l'endroit sélectionné.</span></li>
-            </ul>
+	<div id="info-modal" class="modal">
+		<div class="modal-content">
+			<span class="close-btn">&times;</span>
+			<h2 data-lang-key="infoModalTitle">Infos Éditeur</h2>
+			<p data-lang-key="infoDesc1">Cet éditeur a été créé pour le projet Doom-Nano-ESP32.</p>
+			<p data-lang-key="infoDesc2">Utilisez la palette pour sélectionner un bloc, puis dessinez sur la grille.</p>
+			
+			<h4 data-lang-key="infoActionsTitle">Actions des Boutons :</h4>
+			<ul>
+				<li><strong data-lang-key="infoNew">Nouveau :</strong><span data-lang-key="infoNewDesc"> Efface la carte actuelle.</span></li>
+				<li><strong data-lang-key="infoLoad">Charger :</strong><span data-lang-key="infoLoadDesc"> Charge un fichier de données de niveau (.txt format).</span></li>
+				<li><strong data-lang-key="infoSave">Sauvegarder (C++) :</strong><span data-lang-key="infoSaveDesc"> Sauvegarde le code C++ de la carte dans un fichier .txt.</span></li>
+				<li><strong data-lang-key="infoSaveAscii">Sauvegarder (ASCII) :</strong><span data-lang-key="infoSaveAsciiDesc"> Sauvegarde une version texte lisible de la carte.</span></li>
+				<li><strong data-lang-key="infoCopy">Copier :</strong><span data-lang-key="infoCopyDesc"> Copie la zone actuellement sélectionnée.</span></li>
+				<li><strong data-lang-key="infoPaste">Coller :</strong><span data-lang-key="infoPasteDesc"> Colle la zone copiée à l'endroit sélectionné.</span></li>
+				<li><strong data-lang-key="infoFill">Pot de peinture :</strong><span data-lang-key="infoFillDesc"> Ouvre une palette pour choisir un matériau, puis remplit une zone.</span></li>
+			</ul>
 
-            <h4 data-lang-key="infoShortcutsTitle">Raccourcis Clavier :</h4>
-            <ul>
-                <li><b>Clic + Glisser :</b><span data-lang-key="infoDraw"> Dessiner avec l'outil sélectionné.</span></li>
-                <li><b>MAJ + Clic + Glisser :</b><span data-lang-key="infoSelect"> Sélectionner une zone rectangulaire.</span></li>
-            </ul>
+			<h4 data-lang-key="infoShortcutsTitle">Raccourcis Clavier & Souris :</h4>
+			<ul>
+				<li><b>Clic Gauche + Glisser :</b><span data-lang-key="infoDraw"> Dessiner avec l'outil sélectionné.</span></li>
+				<li><b>MAJ + Clic + Glisser :</b><span data-lang-key="infoSelect"> Sélectionner une zone rectangulaire.</span></li>
+				<li><b data-lang-key="infoEyedropper">Pipette (Clic Droit) :</b><span data-lang-key="infoEyedropperDesc"> Sélectionne l'outil correspondant à la case cliquée.</span></li>
+				<li><b data-lang-key="infoUndoRedo">Annuler/Rétablir :</b><span data-lang-key="infoUndoRedoDesc"> Annule (Ctrl+Z) ou rétablit (Ctrl+Y) la dernière action.</span></li>
+			</ul>
+
+			<h4 data-lang-key="infoPreviewTitle">Prévisualisation 3D :</h4>
+			<ul>
+				<li><b data-lang-key="infoPreviewNav">Navigation :</b><span data-lang-key="infoPreviewNavDesc"> Cliquez sur la fenêtre 3D puis utilisez les flèches du clavier pour vous déplacer.</span></li>
+				<li><b data-lang-key="infoPreviewOptions">Options :</b><span data-lang-key="infoPreviewOptionsDesc"> Utilisez le menu déroulant et le bouton plein écran pour changer l'affichage.</span></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="direction-modal" class="modal">
+        <div class="modal-content">
+            <h3 data-lang-key="directionTitle">Choisir l'Orientation de Départ</h3>
+            <div id="direction-selector">
+                <button data-direction="PLAYER_UP" title="Haut">↑</button>
+                <button data-direction="PLAYER_LEFT" title="Gauche">←</button>
+                <button data-direction="PLAYER_DOWN" title="Bas">↓</button>
+                <button data-direction="PLAYER_RIGHT" title="Droite">→</button>
+            </div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+	<div id="fill-modal" class="modal">
+        <div class="modal-content">
+            <h3 data-lang-key="fillModalTitle">Choisir le matériau de remplissage</h3>
+            <div id="fill-palette"></div>
+        </div>
+    </div>
+
+	<script src="js/translations.js"></script>
+	<script src="js/constants.js"></script>
+	<script src="js/ui.js"></script> <script src="js/editor_actions.js"></script> <script src="js/preview_3d.js"></script>
+	<script src="js/file_handler.js"></script>
+	<script src="js/script.js"></script>
 </body>
 </html>

@@ -9,6 +9,7 @@ h1, h3 { text-align: center; }
     position: relative;
     padding: 0 50px; /* Espace pour le sélecteur de langue */
 }
+
 #lang-switcher {
     position: absolute;
     right: 20px;
@@ -19,6 +20,7 @@ h1, h3 { text-align: center; }
     border-radius: 5px;
     overflow: hidden;
 }
+
 #lang-switcher button {
     background-color: transparent;
     border: none;
@@ -32,11 +34,88 @@ h1, h3 { text-align: center; }
 }
 /* --- FIN NOUVEAUX STYLES --- */
 
-.menu-bar { margin-top: 10px; margin-bottom: 20px; display: flex; gap: 10px; justify-content: center; align-items: center; }
-.menu-bar button { padding: 10px; font-size: 16px; cursor: pointer; }
+.menu-bar { 
+	margin-top: 10px; 
+	margin-bottom: 20px; 
+	display: flex; 
+	gap: 10px; 
+	justify-content: center; 
+	align-items: center; 
+}
+
+.menu-bar button {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Espace entre l'icône et le texte */
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #555;
+    color: #eee;
+    border: 1px solid #777;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.menu-bar button:hover {
+    background-color: #6a6a6a;
+}
+
+.menu-bar button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.menu-bar button svg {
+    width: 16px;
+    height: 16px;
+    /* La ligne "fill: currentColor;" est supprimée d'ici */
+}
 .separator { font-size: 24px; color: #666; }
 .editor-container { display: flex; gap: 20px; justify-content: center; }
 #palette { display: flex; flex-direction: column; gap: 5px; }
+/* Opérations sur les fichiers (Bleu) */
+#new-btn svg,
+#load-btn svg {
+    fill: #5a9bd5; 
+}
+
+/* Sauvegardes (Vert) */
+#save-btn svg,
+#save-ascii-btn svg {
+    fill: #70ad47;
+}
+
+/* Édition (Jaune/Orange) */
+#copy-btn svg {
+    fill: #ffc000;
+}
+#paste-btn svg {
+    fill: #ed7d31;
+}
+
+/* Annuler/Rétablir (Rouge) */
+#undo-btn svg,
+#redo-btn svg {
+    fill: #f44336;
+}
+
+/* Actions spéciales (Violet et Cyan) */
+#export-btn svg {
+    fill: #7030a0;
+}
+#info-btn svg {
+    fill: #00b0f0;
+}
+
+.filename-display {
+    text-align: center;
+    color: #aaa;
+    margin-bottom: 15px;
+    font-style: italic;
+    height: 20px; /* Assure un espacement constant */
+}
+
 .palette-entry {
     display: flex;
     align-items: center;
@@ -45,11 +124,17 @@ h1, h3 { text-align: center; }
     border: 2px solid transparent;
     cursor: pointer;
 }
+
 .palette-entry.selected {
     border-color: #00ff00;
     background-color: #444;
 }
-.palette-label { font-size: 14px; white-space: nowrap; }
+
+.palette-label { 
+	font-size: 14px; 
+	white-space: nowrap; 
+}
+
 .palette-item {
     width: 30px; height: 30px;
     border: 2px solid #555;
@@ -59,27 +144,294 @@ h1, h3 { text-align: center; }
     user-select: none;
     flex-shrink: 0;
 }
+
 #map-grid {
     display: grid;
     grid-template-columns: repeat(64, 12px);
     border: 1px solid #777;
     position: relative; /* Important pour la sélection */
 }
+
 .tile {
     width: 12px; height: 12px;
     background-color: #444;
     box-sizing: border-box;
     border: 1px solid #555;
+    /* --- LIGNES À AJOUTER CI-DESSOUS --- */
+    text-align: center;      /* Centre le texte horizontalement */
+    line-height: 12px;     /* Centre le texte verticalement (doit être égal à la hauteur) */
+    font-size: 10px;       /* Une taille de police légèrement plus petite que la case */
+    color: #000;          /* Couleur du texte (noir pour un bon contraste sur le vert) */
+    font-weight: bold;     /* Pour que la flèche soit bien visible */
+    user-select: none;     /* Empêche la sélection accidentelle de la flèche */
 }
+
 
 /* --- NOUVEAUX STYLES --- */
 .tile.selected-area {
     box-shadow: inset 0 0 0 2px rgba(0, 255, 255, 0.7); /* Surlignage pour la zone sélectionnée */
 }
-
 /* --- FIN NOUVEAUX STYLES --- */
 
-textarea { width: 90%; max-width: 800px; margin: 10px auto; display: block; background-color: #222; color: #0f0; font-family: monospace; }
-.modal { display: none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6); }
-.modal-content { background-color: #444; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%; max-width: 500px; }
-.close-btn { color: #aaa; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
+/* --- STYLES POUR LE POPUP DE DIRECTION --- */
+#direction-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 10px;
+    justify-items: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#direction-selector button {
+    width: 60px;
+    height: 60px;
+    font-size: 32px;
+    cursor: pointer;
+    border: 2px solid #777;
+    background-color: #555;
+    color: #eee;
+    border-radius: 5px;
+}
+
+#direction-selector button:hover {
+    background-color: #666;
+    border-color: #999;
+}
+
+/* Positionnement spécifique des flèches */
+#direction-selector button[data-direction="PLAYER_UP"] { grid-column: 2; grid-row: 1; }
+#direction-selector button[data-direction="PLAYER_LEFT"] { grid-column: 1; grid-row: 2; }
+#direction-selector button[data-direction="PLAYER_DOWN"] { grid-column: 2; grid-row: 2; }
+#direction-selector button[data-direction="PLAYER_RIGHT"] { grid-column: 3; grid-row: 2; }
+/* --- FIN STYLES POUR LE POPUP DE DIRECTION --- */
+
+/* --- STYLES POUR LA PALETTE DE REMPLISSAGE --- */
+#fill-palette {
+    display: flex;
+    flex-wrap: wrap; /* Permet aux éléments d'aller à la ligne */
+    gap: 5px;
+    justify-content: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #666;
+}
+
+/* On réutilise les styles de la palette principale, mais en plus petit */
+#fill-palette .palette-entry {
+    flex-direction: column; /* Icône au-dessus du texte */
+    gap: 5px;
+    width: 60px; /* Largeur fixe pour chaque case */
+}
+
+#fill-palette .palette-item {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 24px;
+}
+
+#fill-palette .palette-label {
+    font-size: 12px;
+}
+/* --- FIN STYLES POUR LA PALETTE DE REMPLISSAGE --- */
+
+/* --- STYLES POUR LE ZOOM --- */
+/* Conteneur principal pour la zone de la grille */
+.grid-area-container {
+    display: flex;
+    flex-direction: column; /* Place les contrôles sous la grille */
+    align-items: flex-end; /* Aligne les contrôles à droite */
+}
+
+/* Le conteneur de la grille (viewport) */
+#grid-viewport {
+    width: 770px;
+    height: 686px;
+    overflow: auto;
+    border: 1px solid #777;
+    background-color: #222;
+}
+
+/* On change l'origine du zoom pour que ça zoome depuis le coin supérieur gauche */
+#map-grid {
+    transform-origin: 0 0;
+}
+
+#zoom-controls {
+    display: flex; /* Aligne les boutons horizontalement */
+    gap: 5px;
+    margin-top: 10px; /* Espace entre la grille et les boutons */
+}
+
+#zoom-controls button {
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    background-color: #555;
+    border: 1px solid #777;
+    color: #eee;
+    cursor: pointer;
+}
+
+#zoom-controls button:hover {
+    background-color: #6a6a6a;
+}
+/* --- FIN STYLES POUR LE ZOOM --- */
+
+/* --- STYLES POUR LA PRÉVISUALISATION 3D --- */
+#preview-container {
+    width: 258px; /* 128px * 2 + bordures */
+    background-color: #444;
+    padding: 10px;
+    border: 1px solid #777;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#preview-container h4 {
+    margin-top: 0;
+    border-bottom: 1px solid #666;
+    padding-bottom: 10px;
+}
+
+#preview-canvas {
+    width: 100%;  /* Prend 100% de la largeur de son conteneur */
+    height: auto; /* Calcule la hauteur automatiquement pour garder les proportions */
+    object-fit: contain;
+    border: 1px solid #111;
+    background-color: #000;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+/* --- FIN STYLES POUR LA PRÉVISUALISATION 3D --- */
+
+textarea { 
+	width: 90%; 
+	max-width: 800px; 
+	margin: 10px auto; 
+	display: block; 
+	background-color: #222; 
+	color: #0f0; 
+	font-family: monospace; 
+}
+
+.modal { 
+	display: none; 
+	position: fixed; 
+	z-index: 1; 
+	left: 0; 
+	top: 0; 
+	width: 100%; 
+	height: 100%; 
+	overflow: auto; 
+	background-color: rgba(0,0,0,0.6); 
+}
+
+.modal-content { 
+	background-color: #444; 
+	margin: 15% auto; 
+	padding: 20px; 
+	border: 1px solid #888; 
+	width: 80%; 
+	max-width: 500px; 
+}
+
+.close-btn { 
+color: #aaa; 
+float: right; 
+font-size: 28px; 
+font-weight: bold; 
+cursor: pointer; 
+}
+
+/* --- STYLES POUR LES CONTRÔLES DE LA PRÉVISUALISATION --- */
+.preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #666;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.preview-header h4 {
+    margin: 0;
+    border: none;
+    padding: 0;
+}
+
+.preview-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.preview-controls select, .preview-controls button {
+    background-color: #555;
+    color: #eee;
+    border: 1px solid #777;
+    border-radius: 3px;
+    padding: 2px 5px;
+}
+
+.preview-controls button {
+    cursor: pointer;
+    line-height: 0; /* Pour bien aligner l'icône SVG */
+}
+
+.preview-controls button svg {
+    width: 14px;
+    height: 14px;
+    fill: #eee;
+}
+
+
+/* --- STYLES POUR LE MODE PLEIN ÉCRAN --- */
+#preview-container.is-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+    z-index: 1000;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#preview-container.is-fullscreen #preview-canvas {
+    width: 100%;
+    height: 100%;
+    /* Conserve l'aspect ratio sans déformer l'image */
+    object-fit: contain;
+}
+
+#fullscreen-close-btn {
+    display: none; /* Caché par défaut */
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    z-index: 1001;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#preview-container.is-fullscreen #fullscreen-close-btn {
+    display: block; /* Visible en plein écran */
+}
+

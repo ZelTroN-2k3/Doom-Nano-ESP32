@@ -51,3 +51,55 @@ function floodFill(x, y, targetValue, replacementValue) {
         }
     }
 }
+
+function drawShape(start, end, value) {
+    let points = [];
+    if (selectedTileKey === 'LINE_TOOL') {
+        points = getLinePoints(start, end);
+    } else if (selectedTileKey === 'RECTANGLE_TOOL') {
+        points = getRectanglePoints(start, end);
+    }
+
+    points.forEach(p => {
+        if (p.x >= 0 && p.x < MAP_WIDTH && p.y >= 0 && p.y < MAP_HEIGHT) {
+            mapData[p.y][p.x] = value;
+        }
+    });
+}
+
+function getLinePoints(start, end) {
+    let points = [];
+    let x0 = start.x, y0 = start.y;
+    let x1 = end.x, y1 = end.y;
+    let dx = Math.abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
+    let dy = -Math.abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
+    let err = dx + dy, e2;
+
+    while (true) {
+        points.push({ x: x0, y: y0 });
+        if (x0 === x1 && y0 === y1) break;
+        e2 = 2 * err;
+        if (e2 >= dy) { err += dy; x0 += sx; }
+        if (e2 <= dx) { err += dx; y0 += sy; }
+    }
+    return points;
+}
+
+function getRectanglePoints(start, end) {
+    let points = [];
+    const minX = Math.min(start.x, end.x);
+    const maxX = Math.max(start.x, end.x);
+    const minY = Math.min(start.y, end.y);
+    const maxY = Math.max(start.y, end.y);
+
+    for (let x = minX; x <= maxX; x++) {
+        points.push({ x: x, y: minY });
+        points.push({ x: x, y: maxY });
+    }
+    for (let y = minY + 1; y < maxY; y++) {
+        points.push({ x: minX, y: y });
+        points.push({ x: maxX, y: y });
+    }
+    return points;
+}
+

@@ -2,6 +2,7 @@ let currentZoom = 1.0;
 const ZOOM_STEP = 0.2;
 const MIN_ZOOM = 0.4;
 const MAX_ZOOM = 3.0;
+const MINIMAP_TILE_SIZE = 2;
 
 function updateUI() {
     const langStrings = translations[currentLang];
@@ -34,6 +35,7 @@ function renderGridFromData() {
         }
     }
     updatePreview();
+    renderMinimap();
 }
 
 function updateSelectionVisuals() {
@@ -74,6 +76,26 @@ function populateFillPalette(container) { // On ajoute "container" comme argumen
 
 function applyZoom() {
     mapGridContainer.style.transform = `scale(${currentZoom})`;
+    updateZoomDisplay();
+    updateMinimapViewport();
+}
+
+function updateZoomDisplay() {
+    if (zoomDisplay) {
+        zoomDisplay.textContent = `Zoom ${currentZoom.toFixed(1)}x`;
+    }
+}
+
+function updateCoordsDisplay(x, y) {
+    if (coordsDisplay) {
+        coordsDisplay.textContent = `X:${x} Y:${y}`;
+    }
+}
+
+function clearCoordsDisplay() {
+    if (coordsDisplay) {
+        coordsDisplay.textContent = `X:-- Y:--`;
+    }
 }
 
 function getGridCoordinates(e) {
@@ -106,3 +128,67 @@ function updateUndoRedoButtons() {
     undoBtn.disabled = historyIndex <= 0;
     redoBtn.disabled = historyIndex >= history.length - 1;
 }
+
+function clearShapePreview() {
+    document.querySelectorAll('.tile.tile-preview').forEach(t => t.classList.remove('tile-preview'));
+}
+
+function drawShapePreview(start, end) {
+    clearShapePreview();
+    let points = [];
+    if (selectedTileKey === 'LINE_TOOL') {
+        points = getLinePoints(start, end);
+    } else if (selectedTileKey === 'RECTANGLE_TOOL') {
+        points = getRectanglePoints(start, end);
+    }
+
+    points.forEach(p => {
+        if (p.x >= 0 && p.x < MAP_WIDTH && p.y >= 0 && p.y < MAP_HEIGHT) {
+            mapGridContainer.children[p.y * MAP_WIDTH + p.x].classList.add('tile-preview');
+        }
+    });
+}
+
+function renderMinimap() {
+    if (!minimapCanvas) return;
+    const ctx = minimapCanvas.getContext('2d');
+    ctx.clearRect(0, 0, minimapCanvas.width, minimapCanvas.height);
+
+    for (let y = 0; y < MAP_HEIGHT; y++) {
+        for (let x = 0; x < MAP_WIDTH; x++) {
+            const tileValue = mapData[y][x];
+            ctx.fillStyle = VALUE_TO_COLOR[tileValue] || '#000';
+            ctx.fillRect(x * MINIMAP_TILE_SIZE, y * MINIMAP_TILE_SIZE, MINIMAP_TILE_SIZE, MINIMAP_TILE_SIZE);
+        }
+    }
+    updateMinimapViewport();
+}
+
+function updateMinimapViewport() {
+    if (!gridViewport || !minimapViewport || !minimapCanvas) return;
+
+    // Dimensions réelles du contenu de la grille (qui change avec le zoom)
+    const contentWidth = gridViewport.scrollWidth;
+    const contentHeight = gridViewport.scrollHeight;
+
+    // Dimensions de la fenêtre de visualisation (qui reste fixe)
+    const viewWidth = gridViewport.clientWidth;
+    const viewHeight = gridViewport.clientHeight;
+
+    // On calcule le ratio de la zone visible par rapport à la taille totale du contenu.
+    // On s'assure que le ratio ne dépasse jamais 100% (cas où le contenu est plus petit que la vue).
+    const widthRatio = Math.min(1.0, viewWidth / contentWidth);
+    const heightRatio = Math.min(1.0, viewHeight / contentHeight);
+
+    // On calcule le ratio de la position du scroll.
+    // Si pas de scroll possible (contenu plus petit que la vue), la position est 0.
+    const leftRatio = contentWidth > viewWidth ? (gridViewport.scrollLeft / contentWidth) : 0;
+    const topRatio = contentHeight > viewHeight ? (gridViewport.scrollTop / contentHeight) : 0;
+
+    // On applique ces ratios à la taille de la mini-carte pour positionner le rectangle.
+    minimapViewport.style.width = `${widthRatio * minimapCanvas.width}px`;
+    minimapViewport.style.height = `${heightRatio * minimapCanvas.height}px`;
+    minimapViewport.style.left = `${leftRatio * minimapCanvas.width}px`;
+    minimapViewport.style.top = `${topRatio * minimapCanvas.height}px`;
+}
+

@@ -5,8 +5,11 @@
     <title>Level Editor</title> <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="header-bar">
-        <h1 data-lang-key="editorTitle">Éditeur de Niveau</h1>
+	<div id="top-bar">
+        <div id="top-bar-left">
+            <h1 data-lang-key="editorTitle">Éditeur de Niveau</h1>
+            <div id="current-filename" class="filename-display"></div>
+        </div>
         <div id="lang-switcher">
             <button data-lang="fr" class="active">FR</button>
             <button data-lang="en">EN</button>
@@ -36,15 +39,31 @@
 	</div>
 
 	<div class="editor-container">
-		<div id="palette"></div>
+		<div id="palette-container">
+			<div id="minimap-container">
+				<h4 data-lang-key="minimapTitle">Minicarte</h4>
+				<div id="minimap-canvas-wrapper">
+					<canvas id="minimap-canvas" width="128" height="114"></canvas>
+					<div id="minimap-viewport"></div>
+				</div>
+			</div>
+			<h4 data-lang-key="paletteTitle">Palette</h4>
+			<div id="palette"></div>
+		</div>
 
 		<div class="grid-area-container">
 			<div id="grid-viewport">
 				<div id="map-grid"></div>
 			</div>
-			<div id="zoom-controls">
-				<button id="zoom-out-btn">-</button>
-				<button id="zoom-in-btn">+</button>
+			<div id="info-bar">
+				<div id="info-bar-left">
+					<span id="zoom-display">Zoom 1.0x</span>
+					<span id="coords-display">X:-- Y:--</span>
+				</div>
+				<div id="zoom-controls">
+					<button id="zoom-out-btn">-</button>
+					<button id="zoom-in-btn">+</button>
+				</div>
 			</div>
 		</div>
 		
@@ -54,26 +73,23 @@
 		<div id="preview-container">
 			<div class="preview-header">
 				<h4 data-lang-key="previewTitle">Prévisualisation 3D</h4>
-				<div class="preview-controls">
+				<div class="preview-controls"> 
 					<select id="resolution-selector">
 						<option value="auto">Auto</option>
-						<option value="16:9">16:9</option>
+						<!-- option value="16:9">16:9</option -->
 						<option value="320x240">320x240</option>
 						<option value="640x480">640x480</option>
-						<option value="800x600">800x600</option>
+						<!-- option value="800x600">800x600</option -->
 					</select>
-				<button id="fullscreen-btn" title="Plein écran">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 0v5h2V2h3V0H0zm16 0h-5v2h3v3h2V0zM0 16h5v-2H2v-3H0v5zm16 0v-5h-2v3h-3v2h5z"/></svg>
-    </button>
+					<button id="fullscreen-btn" title="Plein écran">
+						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 0v5h2V2h3V0H0zm16 0h-5v2h3v3h2V0zM0 16h5v-2H2v-3H0v5zm16 0v-5h-2v3h-3v2h5z"/></svg>
+					</button>
 				</div>
 			</div>
 			<canvas id="preview-canvas" width="128" height="56" tabindex="0"></canvas>
 			<button id="fullscreen-close-btn" style="display: none;">&times;</button>
 		</div>
 	</div>
-
-    <h3 data-lang-key="exportTitle">Code C++ à exporter :</h3>
-    <textarea id="output-data" readonly rows="10" cols="80"></textarea>
 
 	<div id="info-modal" class="modal">
 		<div class="modal-content">
@@ -127,6 +143,39 @@
             <div id="fill-palette"></div>
         </div>
     </div>
+
+	<div id="shape-modal" class="modal">
+        <div class="modal-content">
+            <h3 data-lang-key="shapeModalTitle">Choisir le matériau de la forme</h3>
+            <div id="shape-palette"></div>
+        </div>
+    </div>
+	
+    <div id="maxiview-modal" class="modal">
+        <div class="modal-content-large">
+            <span id="maxiview-close-btn" class="close-btn">&times;</span>
+            <h4 data-lang-key="previewTitle">Prévisualisation 3D</h4>
+            <div id="maxiview-canvas-container">
+                <!-- Le canvas est déplacé ici -->
+            </div>
+        </div>
+    </div>
+
+    <!-- NOUVEAU POPUP POUR L'EXPORTATION (maintenant au bon endroit) -->
+    <div id="export-modal" class="modal">
+        <div class="modal-content">
+            <span id="export-close-btn" class="close-btn">&times;</span>
+            <h3 data-lang-key="exportTitle">Code C++ à exporter :</h3>
+            <textarea id="export-output-data" readonly rows="15"></textarea>
+            <button id="copy-code-btn" data-lang-key="copyButton">Copier</button>
+        </div>
+    </div>
+
+	<footer id="app-footer">
+        <span id="footer-version"></span> | 
+        <span id="footer-author"></span> | 
+        <span id="footer-date"></span>
+    </footer>
 
 	<script src="js/translations.js"></script>
 	<script src="js/constants.js"></script>

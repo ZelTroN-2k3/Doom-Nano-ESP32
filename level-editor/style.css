@@ -1,20 +1,36 @@
-body { font-family: sans-serif; background-color: #333; color: #eee; margin: 20px; }
-h1, h3 { text-align: center; }
+body {
+    font-family: sans-serif;
+    background-color: #333;
+    color: #eee;
+    margin: 20px;
+}
 
-/* --- NOUVEAUX STYLES --- */
-.header-bar {
+h1,
+h3 {
+    margin: 0; /* Ajout pour un meilleur alignement */
+}
+
+#top-bar {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    position: relative;
-    padding: 0 50px; /* Espace pour le sélecteur de langue */
+    padding: 5px 20px;
+    background-color: #2a2a2a;
+    margin: -20px -20px 20px -20px; /* S'étend pour remplir la largeur et annule la marge du body */
+    border-bottom: 1px solid #555;
+}
+
+#top-bar-left {
+    display: flex;
+    align-items: baseline; /* Aligne le titre et le nom du fichier sur leur ligne de base */
+    gap: 20px;
 }
 
 #lang-switcher {
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
+    /* position: absolute; */ /* Supprimez ces lignes... */
+    /* right: 20px; */
+    /* top: 50%; */
+    /* transform: translateY(-50%); */
     display: flex;
     border: 1px solid #777;
     border-radius: 5px;
@@ -29,24 +45,25 @@ h1, h3 { text-align: center; }
     cursor: pointer;
     font-size: 14px;
 }
+
 #lang-switcher button.active {
     background-color: #008cba;
 }
-/* --- FIN NOUVEAUX STYLES --- */
 
-.menu-bar { 
-	margin-top: 10px; 
-	margin-bottom: 20px; 
-	display: flex; 
-	gap: 10px; 
-	justify-content: center; 
-	align-items: center; 
+.menu-bar {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
 }
 
 .menu-bar button {
     display: flex;
     align-items: center;
-    gap: 8px; /* Espace entre l'icône et le texte */
+    gap: 8px;
+    /* Espace entre l'icône et le texte */
     padding: 8px 12px;
     font-size: 14px;
     cursor: pointer;
@@ -69,15 +86,84 @@ h1, h3 { text-align: center; }
 .menu-bar button svg {
     width: 16px;
     height: 16px;
-    /* La ligne "fill: currentColor;" est supprimée d'ici */
 }
-.separator { font-size: 24px; color: #666; }
-.editor-container { display: flex; gap: 20px; justify-content: center; }
-#palette { display: flex; flex-direction: column; gap: 5px; }
+
+.separator {
+    font-size: 24px;
+    color: #666;
+}
+
+.editor-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+#palette {
+    display: flex;
+    flex-direction:
+        column;
+    gap: 0px;
+}
+
+#palette-container {
+    background-color: #444;
+    padding: 10px;
+    border: 1px solid #777;
+    border-radius: 5px;
+    /* On retire text-align: center; qui n'est plus nécessaire ici */
+}
+
+#palette-container h4 {
+    text-align: center;
+    margin-top: 0;
+    border-bottom: 1px solid #666;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+/* --- STYLES POUR LA MINI-CARTE --- */
+#minimap-container {
+    padding: 0 10px 10px 10px;
+    border-bottom: 1px solid #666;
+    margin-bottom: 10px;
+}
+
+#minimap-container h4 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+    padding: 0;
+    border: none;
+}
+
+#minimap-canvas-wrapper {
+    position: relative; /* Important pour positionner la vue */
+    width: 128px;
+    height: 114px;
+    margin: 0 auto; /* Centre la mini-carte */
+}
+
+#minimap-canvas {
+    width: 100%;
+    height: 100%;
+    background-color: #222;
+    border: 1px solid #777;
+}
+
+#minimap-viewport {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid #00ffff;
+    pointer-events: none; /* Permet de cliquer à travers */
+}
+/* --- FIN STYLES MINI-CARTE --- */
+
 /* Opérations sur les fichiers (Bleu) */
 #new-btn svg,
 #load-btn svg {
-    fill: #5a9bd5; 
+    fill: #5a9bd5;
 }
 
 /* Sauvegardes (Vert) */
@@ -90,6 +176,7 @@ h1, h3 { text-align: center; }
 #copy-btn svg {
     fill: #ffc000;
 }
+
 #paste-btn svg {
     fill: #ed7d31;
 }
@@ -104,16 +191,15 @@ h1, h3 { text-align: center; }
 #export-btn svg {
     fill: #7030a0;
 }
+
 #info-btn svg {
     fill: #00b0f0;
 }
 
 .filename-display {
-    text-align: center;
     color: #aaa;
-    margin-bottom: 15px;
     font-style: italic;
-    height: 20px; /* Assure un espacement constant */
+    height: 20px; 
 }
 
 .palette-entry {
@@ -130,13 +216,14 @@ h1, h3 { text-align: center; }
     background-color: #444;
 }
 
-.palette-label { 
-	font-size: 14px; 
-	white-space: nowrap; 
+.palette-label {
+    font-size: 14px;
+    white-space: nowrap;
 }
 
 .palette-item {
-    width: 30px; height: 30px;
+    width: 30px;
+    height: 30px;
     border: 2px solid #555;
     text-align: center;
     line-height: 30px;
@@ -149,29 +236,40 @@ h1, h3 { text-align: center; }
     display: grid;
     grid-template-columns: repeat(64, 12px);
     border: 1px solid #777;
-    position: relative; /* Important pour la sélection */
+    position: relative;
+    /* Important pour la sélection */
 }
 
 .tile {
-    width: 12px; height: 12px;
+    width: 12px;
+    height: 12px;
     background-color: #444;
     box-sizing: border-box;
     border: 1px solid #555;
     /* --- LIGNES À AJOUTER CI-DESSOUS --- */
-    text-align: center;      /* Centre le texte horizontalement */
-    line-height: 12px;     /* Centre le texte verticalement (doit être égal à la hauteur) */
-    font-size: 10px;       /* Une taille de police légèrement plus petite que la case */
-    color: #000;          /* Couleur du texte (noir pour un bon contraste sur le vert) */
-    font-weight: bold;     /* Pour que la flèche soit bien visible */
-    user-select: none;     /* Empêche la sélection accidentelle de la flèche */
+    text-align: center;
+    /* Centre le texte horizontalement */
+    line-height: 12px;
+    /* Centre le texte verticalement (doit être égal à la hauteur) */
+    font-size: 10px;
+    /* Une taille de police légèrement plus petite que la case */
+    color: #000;
+    /* Couleur du texte (noir pour un bon contraste sur le vert) */
+    font-weight: bold;
+    /* Pour que la flèche soit bien visible */
+    user-select: none;
+    /* Empêche la sélection accidentelle de la flèche */
 }
 
-
-/* --- NOUVEAUX STYLES --- */
 .tile.selected-area {
-    box-shadow: inset 0 0 0 2px rgba(0, 255, 255, 0.7); /* Surlignage pour la zone sélectionnée */
+    box-shadow: inset 0 0 0 2px rgba(0, 255, 255, 0.7);
+    /* Surlignage pour la zone sélectionnée */
 }
-/* --- FIN NOUVEAUX STYLES --- */
+
+.tile.tile-preview {
+    box-shadow: inset 0 0 0 2px rgba(0, 255, 0, 0.8);
+    background-color: rgba(0, 255, 0, 0.4) !important;
+}
 
 /* --- STYLES POUR LE POPUP DE DIRECTION --- */
 #direction-selector {
@@ -201,16 +299,32 @@ h1, h3 { text-align: center; }
 }
 
 /* Positionnement spécifique des flèches */
-#direction-selector button[data-direction="PLAYER_UP"] { grid-column: 2; grid-row: 1; }
-#direction-selector button[data-direction="PLAYER_LEFT"] { grid-column: 1; grid-row: 2; }
-#direction-selector button[data-direction="PLAYER_DOWN"] { grid-column: 2; grid-row: 2; }
-#direction-selector button[data-direction="PLAYER_RIGHT"] { grid-column: 3; grid-row: 2; }
+#direction-selector button[data-direction="PLAYER_UP"] {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#direction-selector button[data-direction="PLAYER_LEFT"] {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#direction-selector button[data-direction="PLAYER_DOWN"] {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+#direction-selector button[data-direction="PLAYER_RIGHT"] {
+    grid-column: 3;
+    grid-row: 2;
+}
 /* --- FIN STYLES POUR LE POPUP DE DIRECTION --- */
 
 /* --- STYLES POUR LA PALETTE DE REMPLISSAGE --- */
 #fill-palette {
     display: flex;
-    flex-wrap: wrap; /* Permet aux éléments d'aller à la ligne */
+    flex-wrap: wrap;
+    /* Permet aux éléments d'aller à la ligne */
     gap: 5px;
     justify-content: center;
     margin-top: 20px;
@@ -220,9 +334,11 @@ h1, h3 { text-align: center; }
 
 /* On réutilise les styles de la palette principale, mais en plus petit */
 #fill-palette .palette-entry {
-    flex-direction: column; /* Icône au-dessus du texte */
+    flex-direction: column;
+    /* Icône au-dessus du texte */
     gap: 5px;
-    width: 60px; /* Largeur fixe pour chaque case */
+    width: 60px;
+    /* Largeur fixe pour chaque case */
 }
 
 #fill-palette .palette-item {
@@ -241,8 +357,10 @@ h1, h3 { text-align: center; }
 /* Conteneur principal pour la zone de la grille */
 .grid-area-container {
     display: flex;
-    flex-direction: column; /* Place les contrôles sous la grille */
-    align-items: flex-end; /* Aligne les contrôles à droite */
+    flex-direction: column;
+    /* Place les contrôles sous la grille */
+    align-items: flex-end;
+    /* Aligne les contrôles à droite */
 }
 
 /* Le conteneur de la grille (viewport) */
@@ -260,9 +378,8 @@ h1, h3 { text-align: center; }
 }
 
 #zoom-controls {
-    display: flex; /* Aligne les boutons horizontalement */
+    display: flex;
     gap: 5px;
-    margin-top: 10px; /* Espace entre la grille et les boutons */
 }
 
 #zoom-controls button {
@@ -284,12 +401,15 @@ h1, h3 { text-align: center; }
 
 /* --- STYLES POUR LA PRÉVISUALISATION 3D --- */
 #preview-container {
-    width: 258px; /* 128px * 2 + bordures */
+    width: 258px;
+    flex-shrink: 0;
     background-color: #444;
     padding: 10px;
     border: 1px solid #777;
     border-radius: 5px;
-    text-align: center;
+    /* Ajout pour aligner le contenu en haut */
+    display: flex;
+    flex-direction: column;
 }
 
 #preview-container h4 {
@@ -299,62 +419,64 @@ h1, h3 { text-align: center; }
 }
 
 #preview-canvas {
-    width: 100%;  /* Prend 100% de la largeur de son conteneur */
-    height: auto; /* Calcule la hauteur automatiquement pour garder les proportions */
-    object-fit: contain;
+    display: block; /* Important pour éviter les espaces indésirables */
+    width: 100%;    /* Le canvas prend toute la largeur de son conteneur */
+    
+    /* On force le canvas à respecter un ratio de 128/56, 
+       qui correspond à sa résolution interne. */
+    aspect-ratio: 128 / 56;
+    
     border: 1px solid #111;
     background-color: #000;
     image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
 }
-
 /* --- FIN STYLES POUR LA PRÉVISUALISATION 3D --- */
 
-textarea { 
-	width: 90%; 
-	max-width: 800px; 
-	margin: 10px auto; 
-	display: block; 
-	background-color: #222; 
-	color: #0f0; 
-	font-family: monospace; 
+textarea {
+    width: 90%;
+    max-width: 800px;
+    margin: 10px auto;
+    display: block;
+    background-color: #222;
+    color: #0f0;
+    font-family: monospace;
 }
 
-.modal { 
-	display: none; 
-	position: fixed; 
-	z-index: 1; 
-	left: 0; 
-	top: 0; 
-	width: 100%; 
-	height: 100%; 
-	overflow: auto; 
-	background-color: rgba(0,0,0,0.6); 
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
 }
 
-.modal-content { 
-	background-color: #444; 
-	margin: 15% auto; 
-	padding: 20px; 
-	border: 1px solid #888; 
-	width: 80%; 
-	max-width: 500px; 
+.modal-content {
+    background-color: #444;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
 }
 
-.close-btn { 
-color: #aaa; 
-float: right; 
-font-size: 28px; 
-font-weight: bold; 
-cursor: pointer; 
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 /* --- STYLES POUR LES CONTRÔLES DE LA PRÉVISUALISATION --- */
 .preview-header {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;  /* Place les enfants en colonne (l'un en dessous de l'autre) */
+    align-items: center;     /* Centre les éléments horizontalement */
+    gap: 10px;               /* Ajoute un espace entre le titre et les contrôles */
     border-bottom: 1px solid #666;
     padding-bottom: 10px;
     margin-bottom: 10px;
@@ -371,7 +493,8 @@ cursor: pointer;
     gap: 10px;
 }
 
-.preview-controls select, .preview-controls button {
+.preview-controls select,
+.preview-controls button {
     background-color: #555;
     color: #eee;
     border: 1px solid #777;
@@ -381,7 +504,8 @@ cursor: pointer;
 
 .preview-controls button {
     cursor: pointer;
-    line-height: 0; /* Pour bien aligner l'icône SVG */
+    line-height: 0;
+    /* Pour bien aligner l'icône SVG */
 }
 
 .preview-controls button svg {
@@ -416,7 +540,8 @@ cursor: pointer;
 }
 
 #fullscreen-close-btn {
-    display: none; /* Caché par défaut */
+    display: none;
+    /* Caché par défaut */
     position: fixed;
     top: 15px;
     right: 20px;
@@ -432,6 +557,142 @@ cursor: pointer;
 }
 
 #preview-container.is-fullscreen #fullscreen-close-btn {
-    display: block; /* Visible en plein écran */
+    display: block;
+    /* Visible en plein écran */
 }
 
+/* --- STYLES POUR LA VUE 3D AGRANDIE --- */
+.modal-content-large {
+    background-color: #2d2d2d;
+    margin: 5% auto; /* Centrage vertical et horizontal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 800px; /* Taille maximale de 800px */
+}
+
+#maxiview-canvas-container {
+    width: 100%;
+    background-color: #000;
+    /* On force le format 16:9 */
+    aspect-ratio: 16 / 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* On s'assure que le canvas remplit le conteneur 16:9 */
+#maxiview-canvas-container canvas {
+    /* Ces styles s'appliquent quand le canvas est dans le popup */
+    max-width: 100%;
+    max-height: 100%;
+}
+/* --- FIN STYLES POUR LA VUE 3D AGRANDIE --- */
+
+/* --- STYLES POUR LE PIED DE PAGE --- */
+#app-footer {
+    position: fixed;
+    bottom: 5px;
+    right: 10px;
+    font-size: 12px;
+    color: #777;
+    font-family: monospace;
+}
+/* --- FIN STYLES POUR LE PIED DE PAGE --- */
+
+/* --- STYLES POUR LE POPUP D'EXPORTATION --- */
+#export-output-data {
+    width: 100%;
+    box-sizing: border-box; /* Pour que le padding ne dépasse pas */
+    margin: 10px 0;
+    background-color: #222;
+    color: #0f0;
+    font-family: monospace;
+    border: 1px solid #777;
+    resize: none; /* Empêche l'utilisateur de redimensionner */
+}
+
+#copy-code-btn {
+    display: block;
+    margin: 10px auto 0;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #5a9bd5;
+    color: #eee;
+    border: 1px solid #777;
+    border-radius: 5px;
+}
+/* --- FIN STYLES POUR LE POPUP D'EXPORTATION --- */
+
+/* --- STYLES POUR LA BARRE D'INFO SOUS LA GRILLE --- */
+#info-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 772px; /* Même largeur que la grille */
+    background-color: #444;
+    border: 1px solid #777;
+    border-top: none;
+    padding: 4px 10px;
+    box-sizing: border-box;
+}
+
+#zoom-display,
+#coords-display {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    padding: 0 12px;
+    font-family: monospace;
+    font-size: 14px;
+    font-weight: bold;
+    color: #eee;
+    background-color: #555;
+    border: 1px solid #777;
+    border-radius: 5px;
+}
+
+#info-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Espace entre le zoom et les coordonnées */
+}
+/* --- FIN STYLES POUR LA BARRE D'INFO SOUS LA GRILLE --- */
+
+/* --- STYLES POUR LA PALETTE DES FORMES --- */
+#shape-palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #666;
+}
+
+#shape-palette .palette-entry {
+    flex-direction: column;
+    gap: 5px;
+    width: 60px;
+}
+
+#shape-palette .palette-item {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 24px;
+}
+
+#shape-palette .palette-label {
+    font-size: 12px;
+}
+/* --- FIN STYLES PALETTE DES FORMES --- */
+
+/* On cible l'icône (.palette-item) à l'intérieur de l'outil de sélection
+   en utilisant son attribut de donnée unique [data-tool="select"]
+   et la classe .selected pour une priorité maximale. */
+.palette-entry[data-tool="select"].selected .palette-item {
+    border-color: #00ffffb3 !important;
+}

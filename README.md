@@ -36,9 +36,12 @@ incluant un moteur de rendu 3D par raycasting, une IA pour les ennemis, une gest
   * **Contrôles Flexibles** : Le code est structuré pour supporter un joystick analogique, une manette SNES ou des boutons poussoirs.
   * **Éditeur de Niveau Complet** : Un outil web (HTML/JS/CSS) pour créer, modifier et exporter des cartes directement au format C++ requis par le jeu.
 
-![Doom nano ESP32](https://github.com/ZelTroN-2k3/Doom-Nano-ESP32/blob/main/level-editor/level-editor-multilingual-2.1.png)
 
-![Doom nano ESP32](https://github.com/ZelTroN-2k3/Doom-Nano-ESP32/blob/main/level-editor/level-editor-multilingual-2.2.png)
+![Doom nano ESP32](https://github.com/ZelTroN-2k3/Doom-Nano-ESP32/blob/main/level-editor/level-editor-multilingual-2.0.0.png)
+
+![Doom nano ESP32](https://github.com/ZelTroN-2k3/Doom-Nano-ESP32/blob/main/level-editor/level-editor-multilingual-2.0.1.png)
+
+![Doom nano ESP32](https://github.com/ZelTroN-2k3/Doom-Nano-ESP32/blob/main/level-editor/level-editor-multilingual-2.0.2.png)
 
 ## Matériel Requis
 
